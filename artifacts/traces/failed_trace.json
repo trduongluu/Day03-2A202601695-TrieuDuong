@@ -1,0 +1,85 @@
+{
+  "query": "Tìm iPhone",
+  "failure_type": "unknown_tool_and_repeated_loop",
+  "v1_status": "max_steps_exceeded",
+  "v1_steps": 3,
+  "rca": {
+    "user_input": "Tìm iPhone",
+    "expected_path": "check_stock -> Final Answer",
+    "actual_path": "search_product -> search_product -> search_product",
+    "first_divergence": "Step 1: hallucinated search_product tool",
+    "root_cause": "LLM hallucinated a non-existent tool search_product. V1 executor returned unknown_tool error, but LLM repeated identical call until step limit.",
+    "fix": "Added repeated action detector and available_tools hint in Agent V2."
+  },
+  "trajectory": [
+    {
+      "step": 1,
+      "type": "llm_output",
+      "content": "Thought: Search product catalog.\nAction: search_product({\"q\": \"iPhone\"})"
+    },
+    {
+      "step": 1,
+      "type": "action_and_observation",
+      "tool": "search_product",
+      "args": {
+        "q": "iPhone"
+      },
+      "observation": {
+        "ok": false,
+        "error": "unknown_tool",
+        "message": "Tool 'search_product' is not in available tools list.",
+        "available_tools": [
+          "check_stock",
+          "get_discount",
+          "calc_shipping"
+        ]
+      }
+    },
+    {
+      "step": 2,
+      "type": "llm_output",
+      "content": "Thought: Search again.\nAction: search_product({\"q\": \"iPhone\"})"
+    },
+    {
+      "step": 2,
+      "type": "action_and_observation",
+      "tool": "search_product",
+      "args": {
+        "q": "iPhone"
+      },
+      "observation": {
+        "ok": false,
+        "error": "unknown_tool",
+        "message": "Tool 'search_product' is not in available tools list.",
+        "available_tools": [
+          "check_stock",
+          "get_discount",
+          "calc_shipping"
+        ]
+      }
+    },
+    {
+      "step": 3,
+      "type": "llm_output",
+      "content": "Thought: Search again.\nAction: search_product({\"q\": \"iPhone\"})"
+    },
+    {
+      "step": 3,
+      "type": "action_and_observation",
+      "tool": "search_product",
+      "args": {
+        "q": "iPhone"
+      },
+      "observation": {
+        "ok": false,
+        "error": "unknown_tool",
+        "message": "Tool 'search_product' is not in available tools list.",
+        "available_tools": [
+          "check_stock",
+          "get_discount",
+          "calc_shipping"
+        ]
+      }
+    }
+  ]
+}

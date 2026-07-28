@@ -1,0 +1,122 @@
+{
+  "summary": {
+    "total_cases": 5,
+    "chatbot_avg_tool_calls": 0.0,
+    "agent_avg_steps": 2.4,
+    "agent_success_rate": 100.0,
+    "chatbot_grounding_accuracy_multistep": "0% (0/3 multi-step grounded)",
+    "agent_grounding_accuracy_multistep": "100% (3/3 multi-step grounded via tools)"
+  },
+  "cases": [
+    {
+      "case_id": 1,
+      "query": "What is your return policy?",
+      "category": "static_qa",
+      "chatbot": {
+        "response": "Chính sách đổi trả của chúng tôi là 30 ngày cho sản phẩm lỗi từ nhà sản xuất.",
+        "tool_calls": 0,
+        "grounding": "Static QA (no tool needed)",
+        "latency_ms": 0.0
+      },
+      "agent": {
+        "final_answer": "Chính sách đổi trả của cửa hàng áp dụng trong vòng 30 ngày cho các sản phẩm còn nguyên tem mác.",
+        "status": "success",
+        "steps": 1,
+        "tool_calls_count": 0,
+        "tool_sequence": [],
+        "grounding": "Static QA (no tool needed)",
+        "latency_ms": 1.0592937469482422
+      }
+    },
+    {
+      "case_id": 2,
+      "query": "What are your working hours?",
+      "category": "static_qa",
+      "chatbot": {
+        "response": "Cửa hàng mở cửa từ 8:00 sáng đến 10:00 tối các ngày trong tuần.",
+        "tool_calls": 0,
+        "grounding": "Static QA (no tool needed)",
+        "latency_ms": 0.0
+      },
+      "agent": {
+        "final_answer": "Cửa hàng làm việc từ 8:00 đến 22:00 tất cả các ngày trong tuần.",
+        "status": "success",
+        "steps": 1,
+        "tool_calls_count": 0,
+        "tool_sequence": [],
+        "grounding": "Static QA (no tool needed)",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "case_id": 3,
+      "query": "I want to buy 2 iPhones using code 'WINNER' and ship to Hanoi. The package weight is 0.8 kg. Total?",
+      "category": "multistep_valid",
+      "chatbot": {
+        "response": "Tổng giá 2 iPhone khoảng 45.000.000 VNĐ.",
+        "tool_calls": 0,
+        "grounding": "No evidence (hallucinated / ungrounded)",
+        "latency_ms": 0.0
+      },
+      "agent": {
+        "final_answer": "Tổng chi phí mua 2 iPhone (giảm 10% coupon WINNER + ship Hà Nội) là 45.038.000 VNĐ.",
+        "status": "success",
+        "steps": 4,
+        "tool_calls_count": 3,
+        "tool_sequence": [
+          "check_stock",
+          "get_discount",
+          "calc_shipping"
+        ],
+        "grounding": "Grounded via tool observations",
+        "latency_ms": 1.0106563568115234
+      }
+    },
+    {
+      "case_id": 4,
+      "query": "Can I buy 1 MacBook and ship to Saigon? How much?",
+      "category": "multistep_outofstock",
+      "chatbot": {
+        "response": "Dạ MacBook hiện bán với giá khoảng 35.000.000 VNĐ và giao đến Saigon.",
+        "tool_calls": 0,
+        "grounding": "No evidence (hallucinated / ungrounded)",
+        "latency_ms": 0.0
+      },
+      "agent": {
+        "final_answer": "Rất tiếc, sản phẩm MacBook hiện đang hết hàng (stock = 0) nên chưa thể thực hiện đơn hàng giao tới Saigon.",
+        "status": "success",
+        "steps": 2,
+        "tool_calls_count": 1,
+        "tool_sequence": [
+          "check_stock"
+        ],
+        "grounding": "Grounded via tool observations",
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "case_id": 5,
+      "query": "I want to buy 1 iPad using code 'LEGACY' and ship to Saigon. The package weight is 0.5 kg. How much?",
+      "category": "multistep_invalid_coupon",
+      "chatbot": {
+        "response": "Tổng tiền 1 iPad giao Saigon dùng mã LEGACY là 16.200.000 VNĐ.",
+        "tool_calls": 0,
+        "grounding": "No evidence (hallucinated / ungrounded)",
+        "latency_ms": 0.0
+      },
+      "agent": {
+        "final_answer": "Mã \"LEGACY\" đã hết hạn. Tổng giá 1 iPad giao Saigon (phí ship 47.500đ) không áp dụng giảm giá là 18.047.500 VNĐ.",
+        "status": "success",
+        "steps": 4,
+        "tool_calls_count": 3,
+        "tool_sequence": [
+          "check_stock",
+          "get_discount",
+          "calc_shipping"
+        ],
+        "grounding": "Grounded via tool observations",
+        "latency_ms": 0.0
+      }
+    }
+  ]
+}
